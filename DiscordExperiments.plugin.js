@@ -12,9 +12,6 @@ var actions = Object.values(UserStore._dispatcher._actionHandlers._dependencyGra
 var user = UserStore.getCurrentUser();
 
 module.exports = class {
-  getName(){
-    return "Discord Experiments";
-  }
 
   start() {
     actions.find(n => n.name === "ExperimentStore").actionHandler.CONNECTION_OPEN({
@@ -25,7 +22,7 @@ module.exports = class {
     actions.find(n => n.name === "DeveloperExperimentStore").actionHandler.CONNECTION_OPEN();
     webpackChunkdiscord_app.pop(); 
     user.flags &= ~1; 
-    return "Experiments Enabled";
+    return;
   }
 
   stop(){
@@ -37,6 +34,6 @@ module.exports = class {
     actions.find(n => n.name === "DeveloperExperimentStore").actionHandler.CONNECTION_OPEN();
     webpackChunkdiscord_app.pop(); 
     user.flags &= ~0; 
-    return "Experiments Disabled";
+    return;
   }
 };
