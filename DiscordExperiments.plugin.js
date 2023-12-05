@@ -3,6 +3,7 @@
  * @description Enables the experiments tab in discord's settings.
  * @author Darkov, Zyrenth, MeguminSama
  * @source https://github.com/D4rkov/BDPlugins/blob/main/DiscordExperiments.plugin.js
+ * @version 1.0.0
  */
 
 let cache; webpackChunkdiscord_app.push([["wp_isdev_patch"], {}, r => cache=r.c]);
