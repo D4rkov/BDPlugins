@@ -2,7 +2,7 @@
  * @name DiscordExperiments
  * @description Enables the experiments tab in discord's settings.
  * @author Darkov, Zyrenth, MeguminSama
- * @version 1.0.0
+ * @version 1.0.1
  * @source https://github.com/D4rkov/BDPlugins/blob/main/DiscordExperiments.plugin.js
  * @updateUrl https://raw.githubusercontent.com/D4rkov/BDPlugins/main/DiscordExperiments.plugin.js
  */
