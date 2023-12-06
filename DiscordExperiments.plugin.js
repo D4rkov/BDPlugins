@@ -14,26 +14,22 @@ var user = UserStore.getCurrentUser();
 module.exports = class {
 
   start() {
+    user.flags &= ~0;
     actions.find(n => n.name === "ExperimentStore").actionHandler.CONNECTION_OPEN({
       type: "CONNECTION_OPEN", 
       user: {flags: user.flags |= 1}, 
       experiments: [],
     });
     actions.find(n => n.name === "DeveloperExperimentStore").actionHandler.CONNECTION_OPEN();
-    webpackChunkdiscord_app.pop(); 
-    user.flags &= ~1; 
-    return;
   }
 
   stop(){
+    user.flags &= ~1;
     actions.find(n => n.name === "ExperimentStore").actionHandler.CONNECTION_OPEN({
       type: "CONNECTION_OPEN", 
       user: {flags: user.flags |= 0}, 
       experiments: [],
     });
     actions.find(n => n.name === "DeveloperExperimentStore").actionHandler.CONNECTION_OPEN();
-    webpackChunkdiscord_app.pop(); 
-    user.flags &= ~0; 
-    return;
   }
 };
