@@ -2,12 +2,10 @@
  * @name DiscordExperiments
  * @description Enables the experiments tab in Discord's settings.
  * @author Darkov, Zyrenth, MeguminSama, VincentX0905(炸蝦)
- * @source https://github.com/D4rkov/BDPlugins/blob/main/DiscordExperiments.plugin.js
- * @updateUrl https://raw.githubusercontent.com/D4rkov/BDPlugins/main/DiscordExperiments.plugin.js
- * @version 1.0.2
+ * @version 1.0.3
  */
 
-let intervalId = null;
+let observer = null;
 
 function getUserModule() {
     let cache = webpackChunkdiscord_app.push([[Symbol()], {}, r => r.c]);
@@ -70,18 +68,38 @@ async function revertPatch() {
     }
 }
 
+function setupSmartObserver() {
+    const appMount = document.getElementById("app-mount");
+    if (!appMount) return;
+
+    observer = new MutationObserver(() => {
+        if (!isExperimentsEnabled()) {
+            applyPatch();
+        }
+    });
+
+    observer.observe(appMount, {
+        childList: true,
+        subtree: true,
+        attributes: false
+    });
+}
+
+function disconnectSmartObserver() {
+    if (observer) {
+        observer.disconnect();
+        observer = null;
+    }
+}
+
 module.exports = class DiscordExperiments {
     async start() {
         await applyPatch();
-        intervalId = setInterval(async () => {
-            if (!isExperimentsEnabled()) {
-                await applyPatch();
-            }
-        }, 2500);
+        setupSmartObserver();
     }
 
     async stop() {
-        if (intervalId) clearInterval(intervalId);
+        disconnectSmartObserver();
         await revertPatch();
     }
 }
